@@ -14,7 +14,11 @@ The list of genes that are modified can be found here: https://github.com/sbooes
 ## Installation
 
 ```bash
+# devel
 pip install git+https://github.com/sbooeshaghi/gfix.git
+
+# pypi
+pip install gfix
 ```
 
 ## Usage
