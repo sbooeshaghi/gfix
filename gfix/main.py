@@ -132,12 +132,20 @@ def load_reference_data():
     }
 
 
-def process_cell_value(value, gene_map):
+def process_cell_value(value, gene_map, verbose=False):
     """
     Process a single cell value, checking only for dates.
     Returns the processed value and whether it was changed.
     """
-    if pd.isna(value):
+    if verbose:
+        print(f"Processing value: {value}")
+
+    if isinstance(value, str):
+        value = value.strip()
+        if value == "":
+            return value, False
+
+    if pd.isna(value) or value is None:
         return value, False
 
     # Check if it's a datetime
@@ -175,7 +183,7 @@ def scan_and_fix_excel(input_path, output_path):
         # Process column names
         new_columns = df.columns.tolist()
         for i, col in enumerate(new_columns):
-            new_value, changed = process_cell_value(col, gene_map)
+            new_value, changed = process_cell_value(col, gene_map, verbose=False)
             if changed:
                 changes.append(
                     {
